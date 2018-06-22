@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+	<title>YouTube Speed Memory</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- build:css styles/main.css -->
+	<link href="styles/main.css" rel="stylesheet" type="text/css" media="screen,projection">
+	<!-- endbuild -->
+</head>
+
+<body id="popup-body" ss-container>
+
+<main class="container">
+	<div class="row" id="submit-speeds-container">
+		<div class="col s12 center">
+			<a class="waves-effect waves-light teal darken-2 white-text btn-flat" id="submit-speeds-button">Remember</a>
+		</div>
+	</div>
+
+	<div class="row marginless">
+		<div class="col s12">
+			<h1 class="section-title">Video</h1>
+		</div>
+	</div>
+
+	<div class="row marginless">
+		<div class="col s12">
+			<div class="card">
+				<div class="card-image">
+					<img id="video-thumbnail" src="images/video-thumbnail-placeholder.png">
+				</div>
+				<div class="card-content">
+					<span class="card-title center" id="video-name">Current Video</span>
+					<code id="video-id" class="center"></code>
+					<form>
+						<div class="input-field">
+							<input id="video-speed" type="number" step="0.01" max="4" min="1" value="1"
+								   class="validate">
+							<label for="video-speed">Playback Speed</label>
+							<span class="helper-text" data-error="Speed can be between 1 and 4"></span>
+						</div>
+						<div class="input-field">
+							<input id="video-start" type="number" step="1" max="600" min="0" value="0" class="validate">
+							<label for="video-start">Start Time (s)</label>
+							<span class="helper-text" data-error="Start time can be between 0 and 600"></span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row marginless">
+		<div class="col s12">
+			<h1 class="section-title">Channel</h1>
+		</div>
+	</div>
+
+	<div class="row marginless">
+		<div class="col s12">
+			<div class="card">
+				<div class="card-content">
+					<div class="center">
+						<img id="channel-thumbnail" src="images/channel-thumbnail-placeholder.png"
+							 class="circle responsive-img">
+					</div>
+					<span class="card-title center" style="padding-top: 1rem;" id="channel-name">Current Channel</span>
+					<form>
+						<div class="input-field">
+							<input id="channel-speed" type="number" step="0.01" max="4" min="1" value="1"
+								   class="validate">
+							<label for="channel-speed">Playback Speed</label>
+							<span class="helper-text" data-error="Speed can be between 1 and 4"></span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="loader"></div>
+	<div class="hidden" id="error"></div>
+</main>
+
+<!-- build:js scripts/popup-vendor.js -->
+<script src="scripts.vendor/materialize.min.js"></script>
+<script src="scripts.vendor/simple-scrollbar.min.js"></script>
+<script src="scripts.vendor/ramda.min.js"></script>
+<!-- endbuild -->
+
+<!-- build:js scripts/popup.js -->
+<script src="scripts/utility.js"></script>
+<script src="scripts/popup.js"></script>
+<!-- endbuild -->
+</body>
+</html>
