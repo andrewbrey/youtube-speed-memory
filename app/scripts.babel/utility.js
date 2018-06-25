@@ -11,7 +11,6 @@
       CLOSE_POPUP: 'CLOSE_POPUP',
       REQUEST_PLAYBACK_INFO: 'REQUEST_PLAYBACK_INFO',
       DEFAULT_PLAYBACK_SPEED: 1, // Could come from options
-      DEFAULT_START_TIME: 0,
       DEFAULT_VIDEO_THUMBNAIL: 'images/video-thumbnail-placeholder.png',
       DEFAULT_CHANNEL_THUMBNAIL: 'images/channel-thumbnail-placeholder.png'
     },
@@ -70,13 +69,13 @@
           video.name = (syncable.video.name || video.name || 'UNKNOWN NAME');
           video.thumbnail = (syncable.video.thumbnail || video.thumbnail || null);
           video.speed = (clampSpeed(syncable.video.speed) || clampSpeed(video.speed) || U.constants.DEFAULT_PLAYBACK_SPEED);
-          video.startTime = (clampStartTime(syncable.video.startTime) || clampStartTime(video.startTime) || U.constants.DEFAULT_START_TIME);
+          video.startTime = clampStartTime(syncable.video.startTime);
         } else {
           video.id = (syncable.video.id || `_${(new Date()).getTime()}`);
           video.name = (syncable.video.name || 'UNKNOWN NAME');
           video.thumbnail = (syncable.video.thumbnail || null);
           video.speed = (clampSpeed(syncable.video.speed) || U.constants.DEFAULT_PLAYBACK_SPEED);
-          video.startTime = (clampStartTime(syncable.video.startTime) || U.constants.DEFAULT_START_TIME);
+          video.startTime = clampStartTime(syncable.video.startTime);
         }
 
         sm.videos[video.id] = video;

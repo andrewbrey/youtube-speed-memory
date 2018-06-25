@@ -41,7 +41,9 @@
       video = document.querySelector('video');
 
       video.playbackRate = (playbackInfo.speed || 1);
-      video.currentTime = Math.max(video.currentTime, (playbackInfo.start || 0));
+      if((video.currentTime + 1) < (playbackInfo.start || 0)) {
+        video.currentTime = (playbackInfo.start || 0);
+      }
     } catch(e) {
       console.error('Unable to retrieve Tab info for YouTube Speed Memory');
     }
@@ -52,7 +54,8 @@
   }
 
   function getTabInfo(callback) {
-    setTimeout(() => {
+    let videoInformationIntervalCounter = 0;
+    let videoInformationInterval = setInterval(() => {
       let video = null;
 
       let videoId = null;
@@ -75,17 +78,23 @@
         console.error('Unable to retrieve Tab info for YouTube Speed Memory');
       }
 
-      if(callback && typeof callback === 'function') {
-        callback({
-          videoId: videoId,
-          videoName: videoName,
-          videoThumbnailUrl: videoThumbnailUrl,
-          channelName: channelName,
-          channelThumbnailUrl: channelThumbnailUrl,
-          videoSpeed: videoSpeed
-        });
+      if(videoInformationIntervalCounter > 20 || (videoId && videoSpeed && videoName && videoThumbnailUrl && channelName && channelThumbnailUrl)) {
+        clearInterval(videoInformationInterval);
+
+        if(callback && typeof callback === 'function') {
+          callback({
+            videoId: videoId,
+            videoName: videoName,
+            videoThumbnailUrl: videoThumbnailUrl,
+            channelName: channelName,
+            channelThumbnailUrl: channelThumbnailUrl,
+            videoSpeed: videoSpeed
+          });
+        }
+      } else {
+        videoInformationIntervalCounter++;
       }
-    }, 300);
+    }, 100);
   }
 
 })(chrome);
