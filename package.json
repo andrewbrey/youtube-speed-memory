@@ -1,7 +1,7 @@
 {
   "name": "youtube-speed-memory",
   "description": "A Chrome extension to remember your per-video playback speed preferences for YouTube",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Andrew Brey",
   "private": false,
   "repository": "https://github.com/andrewbrey/youtube-speed-memory",
