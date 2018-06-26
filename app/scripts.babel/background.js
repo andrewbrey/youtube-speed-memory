@@ -26,7 +26,7 @@
         break;
       }
       case U.constants.REQUEST_POPUP_INFO: {
-        chrome.tabs.query({active: true}, tabs => {
+        chrome.tabs.query({active: true, currentWindow: true}, tabs => {
           let speedMemoryPromise = U.fn.runtime.getSpeedMemory();
           let tabInfoPromise = U.fn.runtime.requestTabInfo(tabs[0].id);
 
