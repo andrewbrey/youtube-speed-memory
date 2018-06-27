@@ -73,11 +73,7 @@
         videoName = document.querySelector('#info-contents .title').innerText;
         videoThumbnailUrl = C.VIDEO_THUMBNAIL_TEMPLATE.replace('<<VIDEO_ID>>', videoId);
         channelName = document.querySelector('#owner-name a').innerText;
-
-        // Turns out '#avatar img' is not unique in the DOM and sometimes the first one is the previous channel.
-        // After some testing, it appears that the current channel's video will always look like https://yt3.ggpht.com/a-/....
-        // so grab them all and test their src attr to find the right one
-        channelThumbnailUrl = [].find.call(document.querySelectorAll('#avatar img'), img => { return img.src.match('/.+ggpht.+\/a.+/') }).src
+        channelThumbnailUrl = document.querySelector('.ytd-video-owner-renderer #avatar img').src;
       } catch(e) {
         console.error('Unable to retrieve Tab info for YouTube Speed Memory');
       }
