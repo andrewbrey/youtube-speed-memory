@@ -18,6 +18,9 @@ This extension is open source and licensed under the MIT license, so you can fee
 ## Release History
 See the [Release History](https://github.com/andrewbrey/youtube-speed-memory/releases) for a list of all releases.
 
+## Release Notes
+See the [Release Notes](CHANGELOG.md) for details about changes in each release.
+
 ## License
 
 This project is licensed under the MIT License - see the [license file](LICENSE) for details.

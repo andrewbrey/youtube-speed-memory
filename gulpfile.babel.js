@@ -88,6 +88,14 @@ gulp.task('chromeManifest', () => {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('devChromeManifest', () => {
+  return gulp.src('app/manifest.json')
+    .pipe($.chromeManifest({
+      buildnumber: require('./package.json').version
+    }))
+    .pipe(gulp.dest('app'));
+});
+
 gulp.task('babel', () => {
   return gulp.src('app/scripts.babel/**/*.js')
     .pipe($.babel())
@@ -96,7 +104,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['lint', 'babel', 'styles'], () => {
+gulp.task('watch', ['devChromeManifest', 'lint', 'babel', 'styles'], () => {
   $.livereload.listen();
 
   gulp.watch([

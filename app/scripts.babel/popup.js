@@ -25,6 +25,7 @@
   let channelName = null;
   let channelSpeed = null;
   let rememberButton = null;
+  let justSetSpeedButton = null;
 
   chrome.runtime.onMessage.addListener(message => {
     switch (message.name) {
@@ -45,7 +46,7 @@
 
   U.fn.runtime.requestPopupInfo();
 
-  function updateSpeedMemory() {
+  function updateSpeed(justSetSpeed) {
     let syncable = {
       video: {
         id: videoId.innerText,
@@ -66,11 +67,21 @@
     videoStart.value = syncable.video.startTime;
     channelSpeed.value = syncable.channel.speed;
 
-    // Update shared memory
-    U.fn.runtime.updateSpeedMemory(syncable);
+    if(!justSetSpeed) {
+      // Update shared memory
+      U.fn.runtime.updateSpeedMemory(syncable);
+    }
 
     // Update remote view
     U.fn.runtime.sendTabPlaybackInfo((popupInfo.tabId || -1), U.fn.util.resolvePlaybackSpeed(syncable.video.speed, syncable.channel.speed), syncable.video.startTime);
+  }
+
+  function updateSpeedMemory() {
+    updateSpeed(false);
+  }
+
+  function justUpdateSpeed() {
+    updateSpeed(true);
   }
 
   function showErrorView() {
@@ -91,6 +102,7 @@
     channelSpeed = document.getElementById('channel-speed');
 
     rememberButton = document.getElementById('submit-speeds-button');
+    justSetSpeedButton = document.getElementById('just-set-speeds-button');
 
     let videoThumbnailUrl = R.pathOr(null, ['tabInfo', 'videoThumbnailUrl'], popupInfo) || R.pathOr(null, ['videoMemory', 'thumbnail'], popupInfo);
     let channelThumbnailUrl = R.pathOr(null, ['tabInfo', 'channelThumbnailUrl'], popupInfo) || R.pathOr(null, ['channelMemory', 'thumbnail'], popupInfo);
@@ -133,6 +145,7 @@
       U.fn.runtime.sendTabPlaybackInfo((popupInfo.tabId || -1), U.fn.util.resolvePlaybackSpeed(resolvedVideoSpeed, resolvedChannelSpeed), resolvedStartTime);
 
       rememberButton.addEventListener('click', updateSpeedMemory);
+      justSetSpeedButton.addEventListener('click', justUpdateSpeed);
       loader.classList.add('hidden');
     });
   }
