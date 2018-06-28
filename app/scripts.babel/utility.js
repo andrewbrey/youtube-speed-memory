@@ -49,7 +49,7 @@
     const DEFAULT_SYNC_STORAGE = _defaultSyncStorage();
 
     return new Promise(resolve => {
-      chrome.storage.sync.get({[U.constants.SYNC_STORAGE_KEY]: DEFAULT_SYNC_STORAGE}, (items) => {
+      chrome.storage.local.get({[U.constants.SYNC_STORAGE_KEY]: DEFAULT_SYNC_STORAGE}, (items) => {
         if (chrome.runtime.lastError) {
           console.error(chrome.runtime.lastError);
           resolve(DEFAULT_SYNC_STORAGE);
@@ -96,7 +96,7 @@
         sm.channels[channel.name] = channel;
       }
 
-      chrome.storage.sync.set({[U.constants.SYNC_STORAGE_KEY]: sm});
+      chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
     });
   }
 
