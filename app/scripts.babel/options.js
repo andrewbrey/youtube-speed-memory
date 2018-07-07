@@ -47,7 +47,7 @@
                     <img src="${video.thumbnail}">
                   </div>
                   <div class="card-content left-align">
-                    <p class="break-word"><b>Video Name: </b>${video.name}</p>
+                    <p class="break-word"><b>Video Name: </b><a href="https://www.youtube.com/watch?v=${video.id}">${video.name}</a></p>
                     <p class="break-word"><b>Video ID: </b>${video.id}</p>
                     <p><b>Speed Memory: </b>${video.speed}</p>
                     <p><b>Start Time: </b>${video.startTime}</p>
