@@ -12,13 +12,18 @@
       REQUEST_PLAYBACK_INFO: 'REQUEST_PLAYBACK_INFO',
       DEFAULT_PLAYBACK_SPEED: 1, // Could come from options
       DEFAULT_VIDEO_THUMBNAIL: 'images/video-thumbnail-placeholder.png',
-      DEFAULT_CHANNEL_THUMBNAIL: 'images/channel-thumbnail-placeholder.png'
+      DEFAULT_CHANNEL_THUMBNAIL: 'images/channel-thumbnail-placeholder.png',
+      OPTIONS_PAGE: {
+        VIDEOS_PAGE_SIZE: 10,
+        CHANNELS_PAGE_SIZE: 10
+      }
     },
     fn: {
       runtime: {
         sendRuntimeMessage: sendRuntimeMessage,
         getSpeedMemory: getSpeedMemory,
         updateSpeedMemory: updateSpeedMemory,
+        deleteFromMemory: deleteFromMemory,
         checkThumbnailUrl: checkThumbnailUrl,
         sendTabPlaybackInfo: sendTabPlaybackInfo,
         requestTabInfo: requestTabInfo,
@@ -98,6 +103,19 @@
 
       chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
     });
+  }
+
+  function deleteFromMemory(identifier, isChannel) {
+    getSpeedMemory().then(sm => {
+
+      if(!isChannel) {
+        delete sm.videos[identifier];
+      } else {
+        delete sm.channels[identifier];
+      }
+
+      chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
+    })
   }
 
   function sendTabPlaybackInfo(tabId, speed, startTime) {

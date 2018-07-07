@@ -6,6 +6,7 @@
 ---
 ## Release Notes
 ### 1.x.x
+- ***1.3.0*** - Update options page to list your existing video and channel speed memory settings
 - ***1.2.0*** - Add a "just set the speed" button that will do a one-time speed update for the current video, and not commit the speed to memory
 - ***1.1.0*** - Updated the app to use locally stored data rather than Chrome synchronized data. This helps ensure there's plenty of space to store lots of speed memories, but will result in having starting your speed memory list over
   - ***1.0.4*** - Taking another look at at the bug from the previous release after more circumstances where the wrong image could be displayed
