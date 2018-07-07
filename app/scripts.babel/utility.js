@@ -115,7 +115,7 @@
       }
 
       chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
-    })
+    });
   }
 
   function sendTabPlaybackInfo(tabId, speed, startTime) {
