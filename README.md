@@ -1,9 +1,9 @@
 # YouTube Speed Memory <img src="https://github.com/andrewbrey/youtube-speed-memory/blob/master/app/images/icon-150.png" width="75" align="left" />
 
-[![GitHub release](https://img.shields.io/github/package-json/v/andrewbrey/youtube-speed-memory.svg)](https://github.com/andrewbrey/youtube-speed-memory/releases)
-[![License: MIT](https://img.shields.io/github/license/andrewbrey/youtube-speed-memory.svg)](https://github.com/andrewbrey/youtube-speed-memory/blob/master/LICENSE)
-[![Web store version](https://img.shields.io/chrome-web-store/v/okeninbcaejpibjhmdehanfedmpckigj.svg)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
-[![User count](https://img.shields.io/chrome-web-store/users/okeninbcaejpibjhmdehanfedmpckigj.svg)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
+[![GitHub release](https://img.shields.io/github/package-json/v/andrewbrey/youtube-speed-memory.svg?label=Package%20Version)](https://github.com/andrewbrey/youtube-speed-memory/releases)
+[![License: MIT](https://img.shields.io/github/license/andrewbrey/youtube-speed-memory.svg?label=License)](https://github.com/andrewbrey/youtube-speed-memory/blob/master/LICENSE)
+[![Web store version](https://img.shields.io/chrome-web-store/v/okeninbcaejpibjhmdehanfedmpckigj.svg?label=Chrome%20Store%20Version)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
+[![User count](https://img.shields.io/chrome-web-store/users/okeninbcaejpibjhmdehanfedmpckigj.svg?label=Chrome%20Users)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
 
 ---
 
