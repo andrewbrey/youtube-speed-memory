@@ -56,6 +56,7 @@
   });
 
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // TODO, this is broken without tabs permission
     if (tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/) && changeInfo.status === 'loading' && changeInfo.url) {
       U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
       let speedMemoryPromise = U.fn.runtime.getSpeedMemory();

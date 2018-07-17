@@ -10,6 +10,7 @@
 ### 1.x.x
 
 - ***1.3.x***
+  - ***1.3.2*** - Fix a bug that caused videos not to automatically update speed when the URL changed
   - ***1.3.1*** - Make the video titles on the options page into direct links
   - ***1.3.0*** - Update options page to list your existing video and channel speed memory settings
 - ***1.2.x***

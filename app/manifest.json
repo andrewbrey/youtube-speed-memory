@@ -1,6 +1,6 @@
 {
 	"name": "__MSG_appName__",
-	"version": "1.3.1",
+	"version": "1.3.2",
 	"manifest_version": 2,
 	"description": "__MSG_appDescription__",
 	"homepage_url": "https://github.com/andrewbrey/youtube-speed-memory",
@@ -32,7 +32,8 @@
 	],
 	"permissions": [
 		"declarativeContent",
-		"storage"
+		"storage",
+		"*://*.youtube.com/*"
 	],
 	"options_ui": {
 		"page": "options.html",
