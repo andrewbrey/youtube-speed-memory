@@ -26,6 +26,7 @@
   let channelSpeed = null;
   let rememberButton = null;
   let justSetSpeedButton = null;
+  let openOptions = null;
 
   chrome.runtime.onMessage.addListener(message => {
     switch (message.name) {
@@ -103,6 +104,7 @@
 
     rememberButton = document.getElementById('submit-speeds-button');
     justSetSpeedButton = document.getElementById('just-set-speeds-button');
+    openOptions = document.getElementById('open-options');
 
     let videoThumbnailUrl = R.pathOr(null, ['tabInfo', 'videoThumbnailUrl'], popupInfo) || R.pathOr(null, ['videoMemory', 'thumbnail'], popupInfo);
     let channelThumbnailUrl = R.pathOr(null, ['tabInfo', 'channelThumbnailUrl'], popupInfo) || R.pathOr(null, ['channelMemory', 'thumbnail'], popupInfo);
@@ -146,6 +148,7 @@
 
       rememberButton.addEventListener('click', updateSpeedMemory);
       justSetSpeedButton.addEventListener('click', justUpdateSpeed);
+      openOptions.addEventListener('click', function(){ chrome.runtime.openOptionsPage(); });
       loader.classList.add('hidden');
     });
   }

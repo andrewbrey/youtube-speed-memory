@@ -2,17 +2,12 @@
   'use strict';
 
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
-      chrome.declarativeContent.onPageChanged.addRules([
-        {
-          conditions: [
-            new chrome.declarativeContent.PageStateMatcher({
-              pageUrl: {hostSuffix: 'youtube.com', queryContains: 'v='},
-            })
-          ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-        }
-      ]);
+    chrome.tabs.query({url: '*://*.youtube.com/*'}, tabs => {
+      tabs.forEach(tab => {
+        chrome.tabs.executeScript(tab.id, {file: '/scripts/youtube-speed-memory-listener.js', runAt: 'document_end'}, () => {
+          chrome.pageAction.show(tab.id);
+        });
+      });
     });
   });
 
@@ -62,14 +57,38 @@
 
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/) && changeInfo && changeInfo.status === 'loading' && changeInfo.url) {
+      chrome.pageAction.show(tab.id);
+      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+
       sendSpeedUpdateToTab(tabId);
+    } else {
+      chrome.pageAction.hide(tab.id);
+      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
     }
   });
 
   chrome.tabs.onCreated.addListener(tab => {
     if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
+      chrome.pageAction.show(tab.id);
+      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+
       sendSpeedUpdateToTab(tab.id);
+    } else {
+      chrome.pageAction.hide(tab.id);
+      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
     }
+  });
+
+  chrome.tabs.onActivated.addListener(activeInfo => {
+    chrome.tabs.get(activeInfo.tabId, (tab) => {
+      if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
+        chrome.pageAction.show(tab.id);
+        chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+      } else {
+        chrome.pageAction.hide(tab.id);
+        chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
+      }
+    });
   });
 
   function sendSpeedUpdateToTab(tabId) {

@@ -96,6 +96,15 @@ gulp.task('devChromeManifest', () => {
     .pipe(gulp.dest('app'));
 });
 
+gulp.task('firefox-extra-permissions', () => {
+  return gulp.src('dist/manifest.json')
+    .pipe($.jsonTransform((data, file) => {
+      data.permissions.push('tabs');
+      return data;
+    }, "\t"))
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('babel', () => {
   return gulp.src('app/scripts.babel/**/*.js')
     .pipe($.babel())
@@ -135,7 +144,14 @@ gulp.task('wiredep', () => {
 gulp.task('package', ['build'], () => {
   var manifest = require('./dist/manifest.json');
   return gulp.src('dist/**')
-    .pipe($.zip('YouTube Speed Memory-' + manifest.version + '.zip'))
+    .pipe($.zip('YouTube-Speed-Memory-' + manifest.version + '.zip'))
+    .pipe(gulp.dest('package'));
+});
+
+gulp.task('package-firefox', ['build-firefox'], () => {
+  var manifest = require('./dist/manifest.json');
+  return gulp.src('dist/**')
+    .pipe($.zip('Firefox-YouTube-Speed-Memory-' + manifest.version + '.zip'))
     .pipe(gulp.dest('package'));
 });
 
@@ -143,6 +159,14 @@ gulp.task('build', ['clean'], (cb) => {
   runSequence(
     'lint', 'babel', 'chromeManifest',
     ['html', 'images', 'extras'],
+    'size', cb);
+});
+
+gulp.task('build-firefox', ['clean'], (cb) => {
+  runSequence(
+    'lint', 'babel', 'chromeManifest',
+    ['html', 'images', 'extras'],
+    'firefox-extra-permissions',
     'size', cb);
 });
 

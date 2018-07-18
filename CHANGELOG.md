@@ -4,11 +4,14 @@
 [![License: MIT](https://img.shields.io/github/license/andrewbrey/youtube-speed-memory.svg?label=License)](https://github.com/andrewbrey/youtube-speed-memory/blob/master/LICENSE)
 [![Web store version](https://img.shields.io/chrome-web-store/v/okeninbcaejpibjhmdehanfedmpckigj.svg?label=Chrome%20Store%20Version)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
 [![User count](https://img.shields.io/chrome-web-store/users/okeninbcaejpibjhmdehanfedmpckigj.svg?label=Chrome%20Users)](https://chrome.google.com/webstore/detail/youtube-speed-memory/okeninbcaejpibjhmdehanfedmpckigj)
-
+[![Firefox store version](https://img.shields.io/amo/v/youtube-speed-memory.svg?label=Firefox%20Store%20Version)](https://addons.mozilla.org/en-US/firefox/addon/youtube-speed-memory)
+[![Firefox User count](https://img.shields.io/amo/users/youtube-speed-memory.svg?label=Firefox%20Users)](https://addons.mozilla.org/en-US/firefox/addon/youtube-speed-memory)
 ---
 ## Release Notes
 ### 1.x.x
 
+- ***1.4.x***
+  - ***1.4.0*** - Add support for Firefox
 - ***1.3.x***
   - ***1.3.3*** - Only save video speeds if they are worth saving and make sure everyone stays on the latest versions
   - ***1.3.2*** - Fix a bug that caused videos not to automatically update speed when the URL changed
