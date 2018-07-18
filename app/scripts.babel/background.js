@@ -61,7 +61,7 @@
       chrome.pageAction.show(tab.id);
       chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
 
-      sendSpeedUpdateToTab(tab.id);
+      sendSpeedUpdateToTab(tab.id, (changeInfo && changeInfo.status === 'loading'));
     } else {
       chrome.pageAction.hide(tab.id);
       chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
@@ -92,8 +92,10 @@
     });
   });
 
-  function sendSpeedUpdateToTab(tabId) {
-    U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
+  function sendSpeedUpdateToTab(tabId, shouldClosePopup) {
+    if(shouldClosePopup) {
+      U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
+    }
     let speedMemoryPromise = U.fn.runtime.getSpeedMemory();
     let tabInfoPromise = U.fn.runtime.requestTabInfo(tabId);
 
