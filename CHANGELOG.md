@@ -11,6 +11,7 @@
 ### 1.x.x
 
 - ***1.4.x***
+  - ***1.4.1*** - Make sure the page action title is accurate
   - ***1.4.0*** - Add support for Firefox
 - ***1.3.x***
   - ***1.3.3*** - Only save video speeds if they are worth saving and make sure everyone stays on the latest versions

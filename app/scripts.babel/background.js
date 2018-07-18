@@ -6,6 +6,7 @@
       tabs.forEach(tab => {
         chrome.tabs.executeScript(tab.id, {file: '/scripts/youtube-speed-memory-listener.js', runAt: 'document_end'}, () => {
           chrome.pageAction.show(tab.id);
+          chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory'});
         });
       });
     });
