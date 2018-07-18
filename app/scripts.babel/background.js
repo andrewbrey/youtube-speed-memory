@@ -61,9 +61,7 @@
       chrome.pageAction.show(tab.id);
       chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
 
-      if(changeInfo && changeInfo.status === 'loading' && changeInfo.url) {
-        sendSpeedUpdateToTab(tab.id);
-      }
+      sendSpeedUpdateToTab(tab.id);
     } else {
       chrome.pageAction.hide(tab.id);
       chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});

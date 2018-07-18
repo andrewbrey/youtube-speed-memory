@@ -11,6 +11,7 @@
 ### 1.x.x
 
 - ***1.4.x***
+  - ***1.4.3*** - Help make sure speed updates take place when the URL changes automatically (like in a playlist)
   - ***1.4.2*** - Another quick adjustment to how the page action title behaves
   - ***1.4.1*** - Make sure the page action title is accurate
   - ***1.4.0*** - Add support for Firefox
