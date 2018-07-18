@@ -16,6 +16,10 @@
     });
   });
 
+  chrome.runtime.onUpdateAvailable.addListener(() => {
+    chrome.runtime.reload();
+  });
+
   chrome.runtime.onMessage.addListener((message, sender) => {
     switch (message.name) {
       case U.constants.REQUEST_PLAYBACK_INFO: {
@@ -56,20 +60,29 @@
   });
 
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    // TODO, this is broken without tabs permission
-    if (tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/) && changeInfo.status === 'loading' && changeInfo.url) {
-      U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
-      let speedMemoryPromise = U.fn.runtime.getSpeedMemory();
-      let tabInfoPromise = U.fn.runtime.requestTabInfo(tabId);
-
-      Promise.all([speedMemoryPromise, tabInfoPromise])
-        .then(result => {
-          let playbackInfo = resolvePlaybackInfo(result[0], result[1]);
-
-          U.fn.runtime.sendTabPlaybackInfo(tabId, playbackInfo.speed, playbackInfo.startTime);
-        });
+    if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/) && changeInfo && changeInfo.status === 'loading' && changeInfo.url) {
+      sendSpeedUpdateToTab(tabId);
     }
   });
+
+  chrome.tabs.onCreated.addListener(tab => {
+    if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
+      sendSpeedUpdateToTab(tab.id);
+    }
+  });
+
+  function sendSpeedUpdateToTab(tabId) {
+    U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
+    let speedMemoryPromise = U.fn.runtime.getSpeedMemory();
+    let tabInfoPromise = U.fn.runtime.requestTabInfo(tabId);
+
+    Promise.all([speedMemoryPromise, tabInfoPromise])
+      .then(result => {
+        let playbackInfo = resolvePlaybackInfo(result[0], result[1]);
+
+        U.fn.runtime.sendTabPlaybackInfo(tabId, playbackInfo.speed, playbackInfo.startTime);
+      });
+  }
 
   function resolvePlaybackInfo(speedMemory, tabInfo) {
     tabInfo = (tabInfo || {});

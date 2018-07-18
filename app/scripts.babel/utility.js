@@ -67,7 +67,7 @@
 
   function updateSpeedMemory(syncable) {
     getSpeedMemory().then(sm => {
-      if(syncable && syncable.video) {
+      if(syncable && syncable.video && (syncable.video.speed !== 1 || syncable.video.startTime !== 0)) {
         let video = (sm.videos[syncable.video.id] || {});
 
         if(video.id) {
@@ -86,7 +86,7 @@
         sm.videos[video.id] = video;
       }
 
-      if(syncable && syncable.channel) {
+      if(syncable && syncable.channel && syncable.channel.speed !== 1) {
         let channel = (sm.channels[syncable.channel.name] || {});
 
         if(channel.name) {
