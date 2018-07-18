@@ -17,6 +17,7 @@
   });
 
   chrome.runtime.onUpdateAvailable.addListener(() => {
+    console.log('Update listener invoked - reloading runtime.');
     chrome.runtime.reload();
   });
 
