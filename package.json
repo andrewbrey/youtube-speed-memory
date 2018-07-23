@@ -1,11 +1,16 @@
 {
   "name": "youtube-speed-memory",
   "description": "A web extension to remember your per-video playback speed preferences for YouTube",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "author": "Andrew Brey",
   "private": false,
   "repository": "https://github.com/andrewbrey/youtube-speed-memory",
   "bugs": "https://github.com/andrewbrey/youtube-speed-memory/issues",
+  "dependencies": {
+    "materialize-css": "1.0.0-rc.2",
+    "ramda": "0.25.0",
+    "simple-scrollbar": "0.4.0"
+  },
   "devDependencies": {
     "babel-core": "6.26.3",
     "babel-preset-env": "1.7.0",

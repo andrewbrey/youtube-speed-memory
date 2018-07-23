@@ -11,7 +11,8 @@
 ### 1.x.x
 
 - ***1.4.x***
-  - ***1.4.5*** - Remove code minification that is disliked by Firefox. 
+  - ***1.4.6*** - Remove code minification from third party libraries as well
+  - ***1.4.5*** - Remove code minification that is disliked by Firefox
   - ***1.4.4*** - Fix an issue with the paged content on the options page being limited prematurely
   - ***1.4.3*** - Help make sure speed updates take place when the URL changes automatically (like in a playlist)
   - ***1.4.2*** - Another quick adjustment to how the page action title behaves

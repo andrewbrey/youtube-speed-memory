@@ -21,6 +21,17 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
+gulp.task('vendor-dependencies', () => {
+  return gulp.src([
+    'node_modules/ramda/dist/ramda.js',
+    'node_modules/simple-scrollbar/simple-scrollbar.js',
+    'node_modules/materialize-css/dist/js/materialize.js',
+  ], {
+    base: '',
+    dot: true
+  }).pipe(gulp.dest('app/scripts.vendor'));
+});
+
 gulp.task('lint', () => {
   return gulp.src('app/scripts.babel/**/*.js')
     .pipe($.eslint())
@@ -113,7 +124,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['devChromeManifest', 'lint', 'babel', 'styles'], () => {
+gulp.task('watch', ['vendor-dependencies', 'devChromeManifest', 'lint', 'babel', 'styles'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -157,14 +168,14 @@ gulp.task('package-firefox', ['build-firefox'], () => {
 
 gulp.task('build-chrome', ['clean'], (cb) => {
   runSequence(
-    'lint', 'babel', 'chromeManifest',
+    'lint', 'vendor-dependencies', 'babel', 'chromeManifest',
     ['html', 'images', 'extras'],
     'size', cb);
 });
 
 gulp.task('build-firefox', ['clean'], (cb) => {
   runSequence(
-    'lint', 'babel', 'chromeManifest',
+    'lint', 'vendor-dependencies', 'babel', 'chromeManifest',
     ['html', 'images', 'extras'],
     'firefox-extra-permissions',
     'size', cb);
