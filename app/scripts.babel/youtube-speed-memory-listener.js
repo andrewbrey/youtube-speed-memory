@@ -45,7 +45,7 @@
         video.currentTime = (playbackInfo.start || 0);
       }
     } catch(e) {
-      console.error('Unable to retrieve Tab info for YouTube Speed Memory');
+      console.error('Unable to set Tab playback info for YouTube Speed Memory');
     }
 
     if(callback && typeof callback === 'function') {
@@ -70,10 +70,10 @@
 
         videoId = (new URL(window.location.href)).searchParams.get('v');
         videoSpeed = video.playbackRate;
-        videoName = document.querySelector('#info-contents .title').innerText;
+        videoName = (document.querySelector('#info-contents .title') || document.querySelector('#eow-title')).innerText;
         videoThumbnailUrl = C.VIDEO_THUMBNAIL_TEMPLATE.replace('<<VIDEO_ID>>', videoId);
-        channelName = document.querySelector('#owner-name a').innerText;
-        channelThumbnailUrl = document.querySelector('.ytd-video-owner-renderer #avatar img').src;
+        channelName = (document.querySelector('#owner-name a') || document.querySelector('#watch-header a[href*="/channel/"]')).innerText;
+        channelThumbnailUrl = (document.querySelector('.ytd-video-owner-renderer #avatar img') || document.querySelector('#watch-header .video-thumb img')).src;
       } catch(e) {
         console.error('Unable to retrieve Tab info for YouTube Speed Memory');
       }
