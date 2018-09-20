@@ -11,6 +11,7 @@
 ### 1.x.x
 
 - ***1.4.x***
+  - ***1.4.8*** - Ensure that the correct channel name is grabbed during tab data collection
   - ***1.4.7*** - Update code to work with the version of YouTube that Google is testing periodically for some users
   - ***1.4.6*** - Remove code minification from third party libraries as well
   - ***1.4.5*** - Remove code minification that is disliked by Firefox
