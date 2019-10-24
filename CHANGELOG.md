@@ -8,6 +8,11 @@
 [![Firefox User count](https://img.shields.io/amo/users/youtube-speed-memory.svg?label=Firefox%20Users)](https://addons.mozilla.org/en-US/firefox/addon/youtube-speed-memory)
 ---
 ## Release Notes
+### 2.x.x
+
+- ***2.0.x***
+  - ***2.0.0*** - Complete rewrite of the extension from the ground up...better, faster, stronger, and more emojis (?) 🚀
+
 ### 1.x.x
 
 - ***1.4.x***
