@@ -1,0 +1,15 @@
+{
+  "name": "YSM",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "ysm",
+  "workspaceFolder": "/workspace",
+  "appPort": [],
+  "postCreateCommand": "sudo chown node:node node_modules",
+  "runArgs": [],
+  // Use 'settings' to set *default* container specific settings.json values on container create.
+  // You can edit these settings after create using File > Preferences > Settings > Remote.
+  "settings": {
+    "terminal.integrated.shell.linux": "/usr/bin/zsh"
+  },
+  "extensions": []
+}

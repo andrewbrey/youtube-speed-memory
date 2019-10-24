@@ -11,7 +11,8 @@ app/**/*.js
 app/**/*.js.map
 
 # dependencies
-node_modules/
+node_modules/*
+!node_modules/.gitkeep
 bower_components/
 
 # IDEs and editors
