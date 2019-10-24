@@ -6,17 +6,23 @@
   "private": false,
   "repository": "https://github.com/andrewbrey/youtube-speed-memory",
   "bugs": "https://github.com/andrewbrey/youtube-speed-memory/issues",
-  "dependencies": {},
-  "devDependencies": {},
   "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "tailwindcss": "1.1.3",
+    "typescript": "3.6.4"
+  },
   "keywords": [
     "youtube",
     "chrome-extension",
+    "browser-extension",
     "playback-speed",
     "memory"
   ],
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=12.13.0",
+    "npm": ">=6.12.0",
+    "yarn": ">=1.19.1"
   },
   "license": "MIT"
 }
