@@ -2,6 +2,10 @@
 # Created by https://www.gitignore.io/api/angular,certificates,dotenv,git,intellij+iml,linux,macos,node,osx,sass,sublimetext,visualstudiocode,zsh
 # Edit at https://www.gitignore.io/?templates=angular,certificates,dotenv,git,intellij+iml,linux,macos,node,osx,sass,sublimetext,visualstudiocode,zsh
 
+build/
+extensions/*
+!extensions/.gitkeep
+
 ### Angular ###
 ## Angular ##
 # compiled output
@@ -255,7 +259,7 @@ jspm_packages/
 # nuxt.js build output
 .nuxt
 
-# react / gatsby 
+# react / gatsby
 public/
 
 # vuepress build output

@@ -1,0 +1,9 @@
+.vscode
+.idea
+.devcontainer
+node_modules
+
+*.iml
+
+package.json
+package-lock.json

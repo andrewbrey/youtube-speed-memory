@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "YouTube Speed Memory",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "A web extension to remember your per-video playback speed preferences for YouTube",
+    "description": "The description of the application"
+  }
+}

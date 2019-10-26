@@ -8,7 +8,7 @@
   "runArgs": [],
   "extensions": [
     "bradlc.vscode-tailwindcss",
-    "dbaeumer.vscode-eslint",
+    "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
     "gruntfuggly.todo-tree",
     "ms-vscode.vscode-typescript-tslint-plugin",
