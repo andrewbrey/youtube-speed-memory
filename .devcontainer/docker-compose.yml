@@ -1,12 +1,12 @@
 version: "2.4"
 
-volumes: 
+volumes:
   ysm-node_modules:
 
 services:
   ysm:
     container_name: ysm
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     volumes:
