@@ -1,3 +1,4 @@
+const { join } = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
@@ -17,7 +18,14 @@ module.exports = {
 	},
 	plugins: [
 		new FixStyleOnlyEntriesPlugin({ silent: true }),
-		new CleanWebpackPlugin(),
+		new CleanWebpackPlugin({
+			cleanOnceBeforeBuildPatterns: [
+				join(process.cwd(), `extensions/${process.env.TARGET}`),
+				join(process.cwd(), `extensions/${process.env.TARGET}.zip`),
+			],
+			cleanStaleWebpackAssets: false,
+			verbose: true,
+		}),
 		new MiniCssExtractPlugin({
 			filename: 'styles/[name].css',
 			ignoreOrder: false,
