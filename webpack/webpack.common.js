@@ -8,8 +8,14 @@ const { outputPath, srcPath, stylesheetsPath } = require('./webpack-paths');
 
 module.exports = {
 	target: 'web',
+	resolve: {
+		extensions: ['.ts', '.js'],
+	},
 	entry: {
 		background: `${srcPath}/background.ts`,
+		popup: `${srcPath}/popup.ts`,
+		options: `${srcPath}/options.ts`,
+		ysm: `${srcPath}/ysm.ts`,
 		styles: `${stylesheetsPath}/index.css`,
 	},
 	output: {
@@ -27,7 +33,7 @@ module.exports = {
 			verbose: true,
 		}),
 		new MiniCssExtractPlugin({
-			filename: 'styles/[name].css',
+			filename: 'styles/index.css',
 			ignoreOrder: false,
 		}),
 		new CopyWebpackPlugin([

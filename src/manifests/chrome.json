@@ -15,8 +15,18 @@
 	"background": {
 		"scripts": ["scripts/background.js"]
 	},
-	"content_scripts": [],
+	"content_scripts": [
+		{
+			"matches": ["*://*.youtube.com/*"],
+			"js": ["scripts/ysm.js"],
+			"run_at": "document_end"
+		}
+	],
 	"permissions": ["storage", "*://*.youtube.com/*"],
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": true
+	},
 	"page_action": {
 		"default_icon": {
 			"16": "assets/icons/icon-16.png",

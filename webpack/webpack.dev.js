@@ -7,7 +7,9 @@ module.exports = {
 		pathinfo: true,
 	},
 	plugins: [
-		new ExtensionReloader(),
+		new ExtensionReloader({
+			port: 9090,
+		}),
 	],
 	module: {
 		rules: [],
