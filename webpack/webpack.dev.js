@@ -9,6 +9,12 @@ module.exports = {
 	plugins: [
 		new ExtensionReloader({
 			port: 9090,
+			entries: {
+				contentScript: ['ysm'],
+				background: 'background',
+				extensionPage: ['popup', 'options'],
+			},
+			reloadPage: false
 		}),
 	],
 	module: {
