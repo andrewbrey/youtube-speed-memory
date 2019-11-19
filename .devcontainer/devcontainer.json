@@ -12,7 +12,9 @@
     "esbenp.prettier-vscode",
     "gruntfuggly.todo-tree",
     "ms-vscode.vscode-typescript-tslint-plugin",
-    "naumovs.color-highlight"
+		"naumovs.color-highlight",
+		"luxcium.pop-n-lock-theme-vscode",
+		"ahmadawais.shades-of-purple"
   ],
   "settings": {
     /********************
