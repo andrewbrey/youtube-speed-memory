@@ -10,13 +10,14 @@
 		"module": "esnext",
 		"moduleResolution": "node",
 		"importHelpers": true,
+		"esModuleInterop": true,
 		"target": "es6",
 		"typeRoots": ["node_modules/@types"],
-		"types": ["node"],
+		"types": ["node", "jest"],
 		"lib": ["es2018", "dom"],
 		"strict": true,
 		"noImplicitAny": true
 	},
 	"include": ["src/**/*.ts"],
-	"exclude": ["src/**/*.spec.ts"]
+	"exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
 }

@@ -15,13 +15,15 @@
     "lint:firefox": "web-ext lint --source-dir ./extensions/firefox/",
     "package:chrome": "web-ext build --source-dir ./extensions/chrome/ -a ./extensions/chrome/",
     "package:firefox": "web-ext build --source-dir ./extensions/firefox/ -a ./extensions/firefox/",
-    "build": "npm run build:prod:chrome && npm run lint:chrome && npm run package:chrome && npm run build:prod:firefox && npm run lint:firefox && npm run package:firefox"
+    "build": "npm run build:prod:chrome && npm run lint:chrome && npm run package:chrome && npm run build:prod:firefox && npm run lint:firefox && npm run package:firefox",
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "webextension-polyfill-ts": "0.11.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "1.3.0",
+    "@types/jest": "24.0.23",
     "@types/node": "12.12.11",
     "@types/webpack-env": "1.14.1",
     "autoprefixer": "9.7.2",
@@ -30,6 +32,7 @@
     "copy-webpack-plugin": "5.0.5",
     "css-loader": "3.2.0",
     "html-webpack-plugin": "3.2.0",
+    "jest": "24.9.0",
     "mini-css-extract-plugin": "0.8.0",
     "postcss-custom-properties": "9.0.2",
     "postcss-import": "12.0.1",
@@ -39,6 +42,7 @@
     "source-map-loader": "0.2.4",
     "style-loader": "1.0.0",
     "tailwindcss": "1.1.3",
+    "ts-jest": "24.1.0",
     "ts-loader": "6.2.1",
     "ts-node": "8.5.2",
     "tslint": "5.20.1",
