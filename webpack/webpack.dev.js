@@ -1,8 +1,15 @@
 const ExtensionReloader = require('webpack-extension-reloader');
+const { join } = require('path');
+const { srcPath } = require('./webpack-paths');
 
 module.exports = {
 	mode: 'development',
 	devtool: 'source-map',
+	resolve: {
+		alias: {
+			'@global/env': join(srcPath, 'global', 'environment.dev'),
+		},
+	},
 	output: {
 		pathinfo: true,
 	},
@@ -14,7 +21,7 @@ module.exports = {
 				background: 'background',
 				extensionPage: ['popup', 'options'],
 			},
-			reloadPage: false
+			reloadPage: false,
 		}),
 	],
 	module: {

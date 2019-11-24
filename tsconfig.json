@@ -16,7 +16,12 @@
 		"types": ["node", "jest"],
 		"lib": ["es2018", "dom"],
 		"strict": true,
-		"noImplicitAny": true
+		"noImplicitAny": true,
+		"paths": {
+      "@global/env": [
+        "src/scripts/global/environment"
+      ]
+    },
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]

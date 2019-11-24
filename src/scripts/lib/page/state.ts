@@ -1,4 +1,5 @@
-import { DEBUG_ENABLED, VIDEO_SELECTOR } from './page.constants';
+import { DEBUG_ENABLED } from '@global/env';
+import { VIDEO_SELECTOR } from './page.constants';
 
 export class PageState {
 	constructor() {
