@@ -24,7 +24,7 @@ export interface PlaylistMemory {
 export interface GlobalMemory {
 	enabled: GlobalEnabled;
 	baseline: GlobalBaseline;
-	video?: { [id: string]: VideoMemory };
-	channel?: { [id: string]: ChannelMemory };
-	playlist?: { [id: string]: PlaylistMemory };
+	video: { [id: string]: VideoMemory };
+	channel: { [id: string]: ChannelMemory };
+	playlist: { [id: string]: PlaylistMemory };
 }

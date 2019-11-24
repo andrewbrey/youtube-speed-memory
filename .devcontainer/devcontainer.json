@@ -13,6 +13,7 @@
     "gruntfuggly.todo-tree",
     "ms-vscode.vscode-typescript-tslint-plugin",
 		"naumovs.color-highlight",
+		"joelday.docthis",
 		"luxcium.pop-n-lock-theme-vscode",
 		"ahmadawais.shades-of-purple"
   ],
@@ -93,7 +94,8 @@
       "source.fixAll.tslint": true
     },
     "search.exclude": {
-      "**/node_modules/**/*": true
+			"**/node_modules/**/*": true,
+			"extensions/**/*": true
     }
   }
 }

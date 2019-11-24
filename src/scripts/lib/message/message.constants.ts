@@ -1,0 +1,8 @@
+export const TO_BG = {
+	WHAT_SPEED: 'YSM_TO_BG:WHAT_SPEED',
+};
+
+export const FROM_BG = {
+	PAGE_CHANGED: 'BG_TO_YSM:PAGE_CHANGED',
+	CLOSE_POPUP: 'BG_TO_YSM:CLOSE_POPUP',
+};

@@ -19,7 +19,7 @@
 		{
 			"matches": ["*://*.youtube.com/*"],
 			"js": ["scripts/ysm.js"],
-			"run_at": "document_end"
+			"run_at": "document_start"
 		}
 	],
 	"permissions": ["storage", "*://*.youtube.com/*"],
