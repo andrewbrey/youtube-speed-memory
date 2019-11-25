@@ -1,9 +1,11 @@
 import { cloneDeep } from 'lodash';
 import { GlobalMemory } from 'src/scripts/types';
 import { browser } from 'webextension-polyfill-ts';
+import { DebugLogger } from '../debug/logger';
 import { DEFAULT_GLOBAL_MEMORY, GLOBAL_MEMORY_PERSISTENCE_KEY } from './memory.constants';
 
 class MemoryLiaison {
+	private logger: DebugLogger = DebugLogger.for(this.constructor.name);
 	private memory: GlobalMemory = cloneDeep(DEFAULT_GLOBAL_MEMORY);
 
 	static async init() {
@@ -42,6 +44,7 @@ class MemoryLiaison {
 		// COMMENT: Should this be a merge and not an assignment?
 		this.memory = EXISTING_MEMORY;
 		// this.memory = looperGlobalMemory();
+		this.logger.log({ msg: 'current speed memory', what: this.memory });
 
 		await browser.storage.local.set({ [GLOBAL_MEMORY_PERSISTENCE_KEY]: this.memory });
 	}

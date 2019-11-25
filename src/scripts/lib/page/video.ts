@@ -1,15 +1,17 @@
 import { DEBUG_ENABLED } from '@global/env';
 import { MaybePageVideo } from 'src/scripts/types';
+import { DebugLogger } from '../debug/logger';
 
 export class PageVideo {
-	element: MaybePageVideo = null;
+	private logger: DebugLogger = DebugLogger.for(this.constructor.name);
+	private element: MaybePageVideo = null;
 
 	constructor(video: MaybePageVideo) {
 		this.element = video;
 
 		if (this.element && DEBUG_ENABLED) {
 			this.element.addEventListener('ratechange', () => {
-				console.log(`Video speed changed! -> [${this.element ? this.element.playbackRate : '---'}]`);
+				this.logger.debug(`video speed changed to [${this.element ? this.element.playbackRate : '---'}]`);
 			});
 		}
 	}
@@ -19,7 +21,7 @@ export class PageVideo {
 	}
 
 	setPlaybackRate(rate: number) {
-		console.log(`Setting Speed to [${rate}]`);
+		this.logger.log(`setting speed to [${rate}]`);
 
 		if (this.element) {
 			this.element.playbackRate = rate;

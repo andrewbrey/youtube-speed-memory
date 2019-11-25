@@ -8,10 +8,8 @@ export class MessageSender {
 			: false;
 	}
 
-	static async closePopup(tabId: number, msgPayload: any = null) {
-		return tabId !== browser.tabs.TAB_ID_NONE
-			? await browser.tabs.sendMessage(tabId, { msgName: FROM_BG.CLOSE_POPUP, msgPayload })
-			: false;
+	static async closePopup(msgPayload: any = null) {
+		return await browser.runtime.sendMessage({ msgName: FROM_BG.CLOSE_POPUP, msgPayload });
 	}
 
 	static async whatSpeed(msgPayload: any = null) {

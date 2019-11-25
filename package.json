@@ -19,6 +19,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
+    "date-fns": "2.8.1",
     "lodash": "4.17.15",
     "webextension-polyfill-ts": "0.11.0"
   },

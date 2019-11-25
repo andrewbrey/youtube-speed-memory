@@ -1,3 +1,4 @@
+import { DebugLogger } from '../debug/logger';
 import {
 	CHANNEL_LOOKUP_ID_EXTRACTOR,
 	CHANNEL_LOOKUP_LINK_SELECTOR,
@@ -10,6 +11,7 @@ import {
 import { PageVideo } from './video';
 
 export class PageState {
+	private logger: DebugLogger = DebugLogger.for(this.constructor.name);
 	private isYTM = location.hostname === YOUTUBE_MUSIC_HOSTNAME;
 	private pageVideo = new PageVideo(document.querySelector(VIDEO_SELECTOR));
 
@@ -36,6 +38,8 @@ export class PageState {
 					ELEMENTS_TO_OBSERVE.forEach(e => {
 						const ALL_CHANNEL_LINKS = e.querySelectorAll(CHANNEL_LOOKUP_LINK_SELECTOR);
 						const VISIBLE_CHANNEL_LINKS = Array.from(ALL_CHANNEL_LINKS).filter(elementHasSize);
+
+						this.logger.debug({ msg: 'visible channel links', what: VISIBLE_CHANNEL_LINKS });
 
 						if (VISIBLE_CHANNEL_LINKS.length) {
 							observer.disconnect();
