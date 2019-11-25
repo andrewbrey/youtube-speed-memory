@@ -1,37 +1,79 @@
-import { DEBUG_ENABLED } from '@global/env';
-import { VIDEO_SELECTOR } from './page.constants';
+import {
+	CHANNEL_LOOKUP_ID_EXTRACTOR,
+	CHANNEL_LOOKUP_LINK_SELECTOR,
+	CHANNEL_LOOKUP_OBSERVATION_ROOT_YT,
+	CHANNEL_LOOKUP_OBSERVATION_ROOT_YTM,
+	CHANNEL_LOOKUP_TIMEOUT,
+	VIDEO_SELECTOR,
+	YOUTUBE_MUSIC_HOSTNAME,
+} from './page.constants';
+import { PageVideo } from './video';
 
 export class PageState {
-	constructor() {
-		if (DEBUG_ENABLED) {
-			setInterval(() => {
-				console.log(`video speed -> [${this.currentPlayerSpeed() || '---'}]`);
-			}, 2000);
-		}
+	private isYTM = location.hostname === YOUTUBE_MUSIC_HOSTNAME;
+	private pageVideo = new PageVideo(document.querySelector(VIDEO_SELECTOR));
+
+	async currentPlayerSpeed() {
+		return this.pageVideo.getPlaybackRate();
 	}
 
-	currentPlayerSpeed() {
-		const VIDEO = document.querySelector(VIDEO_SELECTOR);
-
-		return VIDEO ? VIDEO.playbackRate : undefined;
+	async setPlayerSpeed(rate: number) {
+		this.pageVideo.setPlaybackRate(rate);
 	}
 
-	videoId() {
-		return this.urlQuery().get('v') || '';
+	async videoId() {
+		return urlQuery().get('v') || '';
 	}
 
-	channelId() {
-		// TODO implement channelID lookup in DOM
-		return '';
+	async channelId() {
+		return await new Promise<string>(resolve => {
+			try {
+				const ELEMENTS_TO_OBSERVE = this.isYTM
+					? document.querySelectorAll(CHANNEL_LOOKUP_OBSERVATION_ROOT_YTM)
+					: document.querySelectorAll(CHANNEL_LOOKUP_OBSERVATION_ROOT_YT);
+
+				const MUTATION_OBSERVER = new MutationObserver((mutations, observer) => {
+					ELEMENTS_TO_OBSERVE.forEach(e => {
+						const ALL_CHANNEL_LINKS = e.querySelectorAll(CHANNEL_LOOKUP_LINK_SELECTOR);
+						const VISIBLE_CHANNEL_LINKS = Array.from(ALL_CHANNEL_LINKS).filter(elementHasSize);
+
+						if (VISIBLE_CHANNEL_LINKS.length) {
+							observer.disconnect();
+
+							const ANCHOR_PATH = new URL((VISIBLE_CHANNEL_LINKS[0] as HTMLAnchorElement).href).pathname;
+
+							resolve(ANCHOR_PATH.replace(CHANNEL_LOOKUP_ID_EXTRACTOR, '') || '');
+						}
+					});
+				});
+
+				ELEMENTS_TO_OBSERVE.forEach(tw =>
+					MUTATION_OBSERVER.observe(tw, { attributes: true, childList: true, subtree: true })
+				);
+
+				setTimeout(() => {
+					resolve('');
+					MUTATION_OBSERVER.disconnect();
+				}, CHANNEL_LOOKUP_TIMEOUT);
+			} catch (error) {
+				resolve('');
+			}
+		});
 	}
 
-	playlistId() {
-		return this.urlQuery().get('list') || '';
+	async playlistId() {
+		return urlQuery().get('list') || '';
 	}
+}
 
-	private urlQuery() {
-		const CURRENT_URL = new URL(window.location.href);
+function urlQuery() {
+	const CURRENT_URL = new URL(window.location.href);
 
-		return new URLSearchParams(CURRENT_URL.search);
-	}
+	return new URLSearchParams(CURRENT_URL.search);
+}
+
+function elementHasSize(element: Element, index: number, elements: Element[]) {
+	const CLIENT_RECT = element.getBoundingClientRect();
+
+	return CLIENT_RECT.width > 2 && CLIENT_RECT.height > 2;
 }

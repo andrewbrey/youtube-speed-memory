@@ -41,6 +41,7 @@ class MemoryLiaison {
 
 		// COMMENT: Should this be a merge and not an assignment?
 		this.memory = EXISTING_MEMORY;
+		// this.memory = looperGlobalMemory();
 
 		await browser.storage.local.set({ [GLOBAL_MEMORY_PERSISTENCE_KEY]: this.memory });
 	}
@@ -83,8 +84,20 @@ function looperGlobalMemory(): GlobalMemory {
 				title: 'Quinn XCII',
 				image: 'https://yt3.ggpht.com/a-/AAuE7mDGD7myTMr3OOZbY3fpi6bonAKfnIgCg7bupPoDZQ=s48-c-k-c0xffffffff-no-nd-rj',
 			},
+			UC0A2GKK4UdxtQTxpXYduHUg: {
+				id: 'UC0A2GKK4UdxtQTxpXYduHUg',
+				speed: 2,
+				title: 'Quinn XCII',
+				image: 'https://yt3.ggpht.com/a-/AAuE7mDGD7myTMr3OOZbY3fpi6bonAKfnIgCg7bupPoDZQ=s48-c-k-c0xffffffff-no-nd-rj',
+			},
 			'UCq3Ci-h945sbEYXpVlw7rJg': {
 				id: 'UCq3Ci-h945sbEYXpVlw7rJg',
+				speed: 1.25,
+				title: 'The Chainsmokers',
+				image: 'https://yt3.ggpht.com/a-/AAuE7mBObOXHE8X5QtM1pXX-4GR0GaMMF6tJb6i4C8QYeg=s48-c-k-c0xffffffff-no-nd-rj',
+			},
+			'UCQgUHOPJJrmzCjExg-ISupA': {
+				id: 'UCQgUHOPJJrmzCjExg-ISupA',
 				speed: 1.25,
 				title: 'The Chainsmokers',
 				image: 'https://yt3.ggpht.com/a-/AAuE7mBObOXHE8X5QtM1pXX-4GR0GaMMF6tJb6i4C8QYeg=s48-c-k-c0xffffffff-no-nd-rj',

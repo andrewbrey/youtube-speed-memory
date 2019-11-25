@@ -14,24 +14,21 @@ import { ActiveTabMetadata, MessageAndPayload } from './types';
 				return (
 					{
 						[FROM_BG.PAGE_CHANGED]: async (payload?: any) => {
-							const YSM_VIDEO = document.querySelector('video');
+							const [CURRENT_SPEED, VIDEO_ID, CHANNEL_ID, PLAYLIST_ID] = await Promise.all([
+								PAGE_STATE.currentPlayerSpeed(),
+								PAGE_STATE.videoId(),
+								PAGE_STATE.channelId(),
+								PAGE_STATE.playlistId(),
+							]);
 
-							if (YSM_VIDEO) {
-								const CURRENT_TAB_METADATA: ActiveTabMetadata = {
-									current: YSM_VIDEO.playbackRate,
-									videoId: PAGE_STATE.videoId(),
-									channelId: PAGE_STATE.channelId(),
-									playlistId: PAGE_STATE.playlistId(),
-								};
+							const CURRENT_TAB_METADATA: ActiveTabMetadata = {
+								current: CURRENT_SPEED,
+								videoId: VIDEO_ID,
+								channelId: CHANNEL_ID,
+								playlistId: PLAYLIST_ID,
+							};
 
-								const NEXT_SPEED = await MessageSender.whatSpeed(CURRENT_TAB_METADATA);
-								const YSM_SPEED = NEXT_SPEED;
-								console.log(`Setting Speed to [${YSM_SPEED}]`);
-								YSM_VIDEO.playbackRate = YSM_SPEED;
-								return true;
-							} else {
-								return false;
-							}
+							PAGE_STATE.setPlayerSpeed(await MessageSender.whatSpeed(CURRENT_TAB_METADATA));
 						},
 					}[messageName] || noop
 				);
