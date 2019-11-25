@@ -1,11 +1,14 @@
 export type GlobalEnabled = boolean;
 export type GlobalBaseline = number;
+export type VideoMemorySubsetEnd = number | 'full';
 
 export interface VideoMemory {
 	id: string;
 	speed: number;
 	title: string;
 	image: string;
+	start: number;
+	end: VideoMemorySubsetEnd;
 }
 
 export interface ChannelMemory {

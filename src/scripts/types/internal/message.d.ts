@@ -1,4 +1,4 @@
-import { CurrentPlayerSpeed } from '..';
+import { CurrentPlayerSpeed, VideoMemorySubsetEnd } from '..';
 
 export interface MessageAndPayload {
 	msgName: string;
@@ -10,4 +10,10 @@ export interface ActiveTabMetadata {
 	videoId?: string;
 	channelId?: string;
 	playlistId?: string;
+}
+
+export interface SpeedAndSubset {
+	speed: number;
+	start: number;
+	end: VideoMemorySubsetEnd;
 }

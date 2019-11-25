@@ -12,7 +12,7 @@ export class MessageSender {
 		return await browser.runtime.sendMessage({ msgName: FROM_BG.CLOSE_POPUP, msgPayload });
 	}
 
-	static async whatSpeed(msgPayload: any = null) {
-		return await browser.runtime.sendMessage({ msgName: TO_BG.WHAT_SPEED, msgPayload });
+	static async speedAndSubset(msgPayload: any = null) {
+		return await browser.runtime.sendMessage({ msgName: TO_BG.SPEED_AND_SUBSET, msgPayload });
 	}
 }

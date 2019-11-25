@@ -64,6 +64,8 @@ function looperGlobalMemory(): GlobalMemory {
 				title: 'Jesse McCartney - Wasted (Official Video)',
 				image:
 					'https://i.ytimg.com/vi/155ZG0FMHxQ/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLD7JZmHKOTCOCAvHrVZF7GM-GuDIA',
+				start: 5,
+				end: 183,
 			},
 			'4SU8gxrhs1g': {
 				id: '4SU8gxrhs1g',
@@ -71,6 +73,8 @@ function looperGlobalMemory(): GlobalMemory {
 				title: 'Ben Rector - Old Friends (Official Video)',
 				image:
 					'https://i.ytimg.com/vi/4SU8gxrhs1g/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLAfdZ8Tq9cwR1JxxjouSA97xnlzFA',
+				start: 19,
+				end: 235,
 			},
 		},
 		playlist: {

@@ -5,7 +5,7 @@ import { EventualMemoryLiaison } from './lib/memory/liaison';
 import { TO_BG } from './lib/message/message.constants';
 import { MessageSender } from './lib/message/sender';
 import { SpeedResolver } from './lib/speed/resolver';
-import { ActiveTabMetadata, MessageAndPayload } from './types';
+import { ActiveTabMetadata, MessageAndPayload, SpeedAndSubset } from './types';
 
 const ANY_YOUTUBE_TAB_QUERY = '*://*.youtube.com/*';
 const YOUTUBE_WITH_VIDEO = /^.+:\/\/.+youtube.com.*v=.*$/;
@@ -70,17 +70,30 @@ browser.runtime.onMessage.addListener(
 		const MSG_TO_HANDLER = (messageName: string) => {
 			return (
 				{
-					[TO_BG.WHAT_SPEED]: async ({ current, videoId = '', channelId = '', playlistId = '' }: ActiveTabMetadata) => {
+					[TO_BG.SPEED_AND_SUBSET]: async ({
+						current,
+						videoId = '',
+						channelId = '',
+						playlistId = '',
+					}: ActiveTabMetadata) => {
 						const MEMORY_LIAISON = await EventualMemoryLiaison;
 
-						return SpeedResolver.resolve({
-							current,
-							enabled: MEMORY_LIAISON.getEnabled(),
-							baseline: MEMORY_LIAISON.getBaseline(),
-							video: MEMORY_LIAISON.getVideoMemory(videoId),
-							channel: MEMORY_LIAISON.getChannelMemory(channelId),
-							playlist: MEMORY_LIAISON.getPlaylistMemory(playlistId),
-						});
+						const video = MEMORY_LIAISON.getVideoMemory(videoId);
+
+						const SPEED_AND_SUBSET: SpeedAndSubset = {
+							speed: SpeedResolver.resolve({
+								current,
+								enabled: MEMORY_LIAISON.getEnabled(),
+								baseline: MEMORY_LIAISON.getBaseline(),
+								video,
+								channel: MEMORY_LIAISON.getChannelMemory(channelId),
+								playlist: MEMORY_LIAISON.getPlaylistMemory(playlistId),
+							}),
+							start: video ? video.start : 0,
+							end: video ? video.end : 'full',
+						};
+
+						return SPEED_AND_SUBSET;
 					},
 				}[messageName] || noop
 			);

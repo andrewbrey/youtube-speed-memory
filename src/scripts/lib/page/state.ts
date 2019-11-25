@@ -1,3 +1,4 @@
+import { VideoMemorySubsetEnd } from 'src/scripts/types';
 import { DebugLogger } from '../debug/logger';
 import {
 	CHANNEL_LOOKUP_ID_EXTRACTOR,
@@ -21,6 +22,14 @@ export class PageState {
 
 	async setPlayerSpeed(rate: number) {
 		this.pageVideo.setPlaybackRate(rate);
+	}
+
+	async skipToTime(start: number) {
+		this.pageVideo.setCurrentTime(start);
+	}
+
+	async setEndTime(end: VideoMemorySubsetEnd) {
+		this.pageVideo.setEndTime(end);
 	}
 
 	async videoId() {

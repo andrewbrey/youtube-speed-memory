@@ -1,5 +1,5 @@
 import { DEBUG_ENABLED } from '@global/env';
-import { MaybePageVideo } from 'src/scripts/types';
+import { MaybePageVideo, VideoMemorySubsetEnd } from 'src/scripts/types';
 import { DebugLogger } from '../debug/logger';
 
 export class PageVideo {
@@ -25,6 +25,33 @@ export class PageVideo {
 
 		if (this.element) {
 			this.element.playbackRate = rate;
+		}
+	}
+
+	setCurrentTime(skipTo: number) {
+		if (this.element) {
+			const CURRENT_TIME = this.element.currentTime;
+
+			if (CURRENT_TIME < skipTo) {
+				this.element.currentTime = skipTo;
+			}
+		}
+	}
+
+	setEndTime(endTime: VideoMemorySubsetEnd) {
+		if (this.element && endTime !== 'full') {
+			const END_TIME_LISTENER = () => {
+				if (this.element) {
+					const CURRENT_TIME = this.element.currentTime;
+
+					if (CURRENT_TIME >= endTime) {
+						this.element.removeEventListener('timeupdate', END_TIME_LISTENER);
+						this.element.currentTime = this.element.duration;
+					}
+				}
+			};
+
+			this.element.addEventListener('timeupdate', END_TIME_LISTENER);
 		}
 	}
 }
