@@ -11,11 +11,11 @@ export interface PageWithState {
 }
 
 export interface MaybeVideo {
-	onEvent(eventName: string, callback: (...args: any[]) => any): void;
-	getPlaybackRate(): number;
-	setPlaybackRate(rate: number): void;
-	setCurrentTime(skipTo: number): void;
-	setEndTime(endTime: VideoMemorySubsetEnd): void;
+	onEvent(eventName: string, callback: (...args: any[]) => any): Promise<void>;
+	getPlaybackRate(): Promise<number>;
+	setPlaybackRate(rate: number): Promise<void>;
+	setCurrentTime(skipTo: number): Promise<void>;
+	setEndTime(endTime: VideoMemorySubsetEnd): Promise<void>;
 }
 
 export type MaybePageVideo = HTMLVideoElement | null;

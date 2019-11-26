@@ -7,15 +7,15 @@ import {
 	CHANNEL_LOOKUP_OBSERVATION_ROOT_YT,
 	CHANNEL_LOOKUP_OBSERVATION_ROOT_YTM,
 	CHANNEL_LOOKUP_TIMEOUT,
-	VIDEO_SELECTOR,
 	YOUTUBE_MUSIC_HOSTNAME,
 } from './page.constants';
+import { elementHasSizeFilter, urlQuery } from './page.utils';
 import { PageVideo } from './video';
 
 export class PageState implements PageWithState {
 	private logger: DebugLogger = DebugLogger.for(this.constructor.name);
 	private isYTM = location.hostname === YOUTUBE_MUSIC_HOSTNAME;
-	private pageVideo = new PageVideo(document.querySelector<HTMLVideoElement>(VIDEO_SELECTOR));
+	private pageVideo = new PageVideo(this.isYTM);
 
 	constructor() {
 		this.pageVideo.onEvent('play', () => {
@@ -46,6 +46,8 @@ export class PageState implements PageWithState {
 	async channelId() {
 		return await new Promise<string>(resolve => {
 			try {
+				this.logger.debug('searching for channel id');
+
 				let foundChannelId = false;
 
 				const LOOKUP_ROOT = this.isYTM ? CHANNEL_LOOKUP_OBSERVATION_ROOT_YTM : CHANNEL_LOOKUP_OBSERVATION_ROOT_YT;
@@ -53,7 +55,7 @@ export class PageState implements PageWithState {
 				const MUTATION_OBSERVER = new MutationObserver((mutations, observer) => {
 					ELEMENTS_TO_OBSERVE.forEach(e => {
 						const ALL_CHANNEL_LINKS = e.querySelectorAll(CHANNEL_LOOKUP_LINK_SELECTOR);
-						const VISIBLE_CHANNEL_LINKS = Array.from(ALL_CHANNEL_LINKS).filter(elementHasSize);
+						const VISIBLE_CHANNEL_LINKS = Array.from(ALL_CHANNEL_LINKS).filter(elementHasSizeFilter);
 
 						this.logger.debug({ msg: 'visible channel links', what: VISIBLE_CHANNEL_LINKS });
 
@@ -77,8 +79,10 @@ export class PageState implements PageWithState {
 					MUTATION_OBSERVER.disconnect();
 
 					if (!foundChannelId) {
+						this.logger.error('using channel id search fallback');
+
 						const LOOKUP_FALLBACK_LINKS = document.querySelectorAll(`${LOOKUP_ROOT} ${CHANNEL_LOOKUP_LINK_SELECTOR}`);
-						const VISIBLE_FALLBACK_LINKS = Array.from(LOOKUP_FALLBACK_LINKS).filter(elementHasSize);
+						const VISIBLE_FALLBACK_LINKS = Array.from(LOOKUP_FALLBACK_LINKS).filter(elementHasSizeFilter);
 
 						if (VISIBLE_FALLBACK_LINKS.length) {
 							const ANCHOR_PATH = new URL((VISIBLE_FALLBACK_LINKS[0] as HTMLAnchorElement).href).pathname;
@@ -98,16 +102,4 @@ export class PageState implements PageWithState {
 	async playlistId() {
 		return urlQuery().get('list') || '';
 	}
-}
-
-function urlQuery() {
-	const CURRENT_URL = new URL(window.location.href);
-
-	return new URLSearchParams(CURRENT_URL.search);
-}
-
-function elementHasSize(element: Element, index: number, elements: Element[]) {
-	const CLIENT_RECT = element.getBoundingClientRect();
-
-	return CLIENT_RECT.width > 2 && CLIENT_RECT.height > 2;
 }
