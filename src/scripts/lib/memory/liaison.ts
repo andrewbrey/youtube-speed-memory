@@ -20,6 +20,16 @@ class MemoryLiaison {
 		return this.memory.enabled;
 	}
 
+	disable() {
+		this.memory.enabled = false;
+		this.saveMemory();
+	}
+
+	enable() {
+		this.memory.enabled = true;
+		this.saveMemory();
+	}
+
 	getBaseline() {
 		return this.memory.baseline;
 	}
@@ -46,6 +56,10 @@ class MemoryLiaison {
 		// this.memory = looperGlobalMemory();
 		this.logger.log({ msg: 'current speed memory', what: this.memory });
 
+		await this.saveMemory();
+	}
+
+	private async saveMemory() {
 		await browser.storage.local.set({ [GLOBAL_MEMORY_PERSISTENCE_KEY]: this.memory });
 	}
 }

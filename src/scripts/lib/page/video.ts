@@ -1,8 +1,8 @@
 import { DEBUG_ENABLED } from '@global/env';
-import { MaybePageVideo, VideoMemorySubsetEnd } from 'src/scripts/types';
+import { MaybePageVideo, MaybeVideo, VideoMemorySubsetEnd } from 'src/scripts/types';
 import { DebugLogger } from '../debug/logger';
 
-export class PageVideo {
+export class PageVideo implements MaybeVideo {
 	private logger: DebugLogger = DebugLogger.for(this.constructor.name);
 	private element: MaybePageVideo = null;
 
@@ -13,6 +13,12 @@ export class PageVideo {
 			this.element.addEventListener('ratechange', () => {
 				this.logger.debug(`video speed changed to [${this.element ? this.element.playbackRate : '---'}]`);
 			});
+		}
+	}
+
+	onEvent(eventName: string, callback: (...args: any[]) => any) {
+		if (this.element) {
+			this.element.addEventListener(eventName, callback);
 		}
 	}
 

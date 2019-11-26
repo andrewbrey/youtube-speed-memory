@@ -1,15 +1,15 @@
-import { ActiveTabMetadata, SpeedAndSubset } from 'src/scripts/types';
+import { ActiveTabMetadata, PageWithState, SpeedAndSubset } from 'src/scripts/types';
+import { DebugLogger } from '../../debug/logger';
 import { MessageSender } from '../../message/sender';
-import { PageState } from '../state';
 
-export async function pageChangedHandler(payload?: any) {
-	const PAGE_STATE = new PageState();
+export async function pageChangedHandler(pageState: PageWithState) {
+	const LOGGER = DebugLogger.for('pageChangedHandler');
 
 	const [CURRENT_SPEED, VIDEO_ID, CHANNEL_ID, PLAYLIST_ID] = await Promise.all([
-		PAGE_STATE.currentPlayerSpeed(),
-		PAGE_STATE.videoId(),
-		PAGE_STATE.channelId(),
-		PAGE_STATE.playlistId(),
+		pageState.currentPlayerSpeed(),
+		pageState.videoId(),
+		pageState.channelId(),
+		pageState.playlistId(),
 	]);
 
 	const CURRENT_TAB_METADATA: ActiveTabMetadata = {
@@ -19,9 +19,13 @@ export async function pageChangedHandler(payload?: any) {
 		playlistId: PLAYLIST_ID,
 	};
 
+	LOGGER.debug(CURRENT_TAB_METADATA);
+
 	const SPEED_AND_SUBSET: SpeedAndSubset = await MessageSender.speedAndSubset(CURRENT_TAB_METADATA);
 
-	PAGE_STATE.setPlayerSpeed(SPEED_AND_SUBSET.speed);
-	PAGE_STATE.skipToTime(SPEED_AND_SUBSET.start);
-	PAGE_STATE.setEndTime(SPEED_AND_SUBSET.end);
+	LOGGER.log(SPEED_AND_SUBSET);
+
+	pageState.setPlayerSpeed(SPEED_AND_SUBSET.speed);
+	pageState.skipToTime(SPEED_AND_SUBSET.start);
+	pageState.setEndTime(SPEED_AND_SUBSET.end);
 }
