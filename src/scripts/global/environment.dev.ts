@@ -31,6 +31,11 @@ export const MEMORY_SEED: GlobalMemory = {
 			speed: 1.1,
 			title: 'Looper',
 		},
+		'PLjEO1Z6kCOle0lHa4ErtiyiRybF-P5tBY': {
+			id: 'PLjEO1Z6kCOle0lHa4ErtiyiRybF-P5tBY',
+			speed: 1.6,
+			title: 'Sandi Metz and Katrina Owen: OOD and Refactoring',
+		},
 	},
 	channel: {
 		UCvud0mK7irJ34RVdTPSwDfQ: {

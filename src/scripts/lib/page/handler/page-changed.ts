@@ -19,11 +19,11 @@ export async function pageChangedHandler(pageState: PageWithState) {
 		playlistId: PLAYLIST_ID,
 	};
 
-	LOGGER.debug(CURRENT_TAB_METADATA);
+	LOGGER.debug('current tab metadata', CURRENT_TAB_METADATA);
 
 	const SPEED_AND_SUBSET: SpeedAndSubset = await MessageSender.speedAndSubset(CURRENT_TAB_METADATA);
 
-	LOGGER.log(SPEED_AND_SUBSET);
+	LOGGER.log('resulting speed and subset', SPEED_AND_SUBSET);
 
 	pageState.setPlayerSpeed(SPEED_AND_SUBSET.speed);
 	pageState.skipToTime(SPEED_AND_SUBSET.start);

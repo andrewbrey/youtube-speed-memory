@@ -14,6 +14,7 @@ export class PageVideo implements MaybeVideo {
 	private elementSearch: Promise<MaybePageVideo>;
 	private element: MaybePageVideo = null;
 
+	// IDEA: should this just watch the document instead of some other root?
 	constructor(isYTM: boolean) {
 		const VIDEO_LOOKUP_ROOT = isYTM ? VIDEO_LOOKUP_ROOT_YTM : VIDEO_LOOKUP_ROOT_YT;
 
@@ -44,7 +45,7 @@ export class PageVideo implements MaybeVideo {
 				this.element.addEventListener(eventName, callback);
 			}
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error('onEvent error', error);
 		}
 	}
 
@@ -54,7 +55,7 @@ export class PageVideo implements MaybeVideo {
 
 			return this.element ? this.element.playbackRate : 1;
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error('getPlaybackRate error', error);
 
 			return 1;
 		}
@@ -70,7 +71,7 @@ export class PageVideo implements MaybeVideo {
 				this.element.playbackRate = rate;
 			}
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error('setPlaybackRate error', error);
 		}
 	}
 
@@ -86,7 +87,7 @@ export class PageVideo implements MaybeVideo {
 				}
 			}
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error('setCurrentTime error', error);
 		}
 	}
 
@@ -109,7 +110,7 @@ export class PageVideo implements MaybeVideo {
 				this.element.addEventListener('timeupdate', END_TIME_LISTENER);
 			}
 		} catch (error) {
-			this.logger.error(error);
+			this.logger.error('setEndTime error', error);
 		}
 	}
 }
@@ -129,7 +130,7 @@ async function obtainPageVideo(videoRootSelector: string = '', videoSelector: st
 					const ALL_VIDEOS = e.querySelectorAll(videoSelector);
 					const VISIBLE_VIDEOS = Array.from(ALL_VIDEOS).filter(elementHasSizeFilter);
 
-					LOGGER.debug({ msg: 'visible videos', what: VISIBLE_VIDEOS });
+					LOGGER.debug('visible videos', VISIBLE_VIDEOS);
 
 					if (VISIBLE_VIDEOS.length) {
 						foundVideo = true;

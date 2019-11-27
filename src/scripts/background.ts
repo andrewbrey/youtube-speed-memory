@@ -24,7 +24,7 @@ browser.runtime.onInstalled.addListener(async () => {
 				browser.pageAction.setTitle({ tabId: TAB_ID, title: 'YouTube Speed Memory is Inactive' });
 			}
 		} catch (e) {
-			LOGGER.error(e);
+			LOGGER.error('onInstalled error', e);
 		}
 	});
 });
@@ -41,7 +41,7 @@ browser.tabs.onActivated.addListener(async ({ tabId }) => {
 			browser.pageAction.setTitle({ tabId: TAB_ID, title: 'YouTube Speed Memory is Inactive' });
 		}
 	} catch (e) {
-		LOGGER.error(e);
+		LOGGER.error('onActivated error', e);
 	}
 });
 
@@ -60,7 +60,7 @@ browser.tabs.onUpdated.addListener(
 				browser.pageAction.setTitle({ tabId: TAB_ID, title: 'YouTube Speed Memory is Inactive' });
 			}
 		} catch (e) {
-			LOGGER.error(e);
+			LOGGER.error('onUpdated error', e);
 		}
 	}
 );
@@ -92,6 +92,8 @@ browser.runtime.onMessage.addListener(
 							start: video ? video.start : 0,
 							end: video ? video.end : 'full',
 						};
+
+						LOGGER.debug('speed and subset after resolution', SPEED_AND_SUBSET);
 
 						return SPEED_AND_SUBSET;
 					},

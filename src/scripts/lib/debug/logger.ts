@@ -12,7 +12,7 @@ export class DebugLogger {
 		return new DebugLogger(clazz);
 	}
 
-	log(what: any) {
+	log(msg: string, what?: any) {
 		if (DEBUG_ENABLED) {
 			// tslint:disable-next-line:no-console
 			console.log(
@@ -21,11 +21,11 @@ export class DebugLogger {
 				'color:#aaa'
 			);
 			// tslint:disable-next-line:no-console
-			console.log('  ', what);
+			console.log(`  ${msg}`, what || '');
 		}
 	}
 
-	debug(what: any) {
+	debug(msg: string, what?: any) {
 		if (DEBUG_ENABLED) {
 			// tslint:disable-next-line:no-console
 			console.debug(
@@ -34,11 +34,11 @@ export class DebugLogger {
 				'color:#aaa'
 			);
 			// tslint:disable-next-line:no-console
-			console.debug('  ', what);
+			console.debug(`  ${msg}`, what || '');
 		}
 	}
 
-	error(what: any) {
+	error(msg: string, what?: any) {
 		if (DEBUG_ENABLED) {
 			// tslint:disable-next-line:no-console
 			console.log(
@@ -47,7 +47,7 @@ export class DebugLogger {
 				'color:#aaa'
 			);
 			// tslint:disable-next-line:no-console
-			console.log('  ', what);
+			console.log(`  ${msg}`, what || '');
 		}
 	}
 }

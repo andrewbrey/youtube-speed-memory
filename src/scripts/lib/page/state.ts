@@ -17,6 +17,7 @@ export class PageState implements PageWithState {
 	private isYTM = location.hostname === YOUTUBE_MUSIC_HOSTNAME;
 	private pageVideo = new PageVideo(this.isYTM);
 
+	// TODO track event listeners
 	constructor() {
 		this.pageVideo.onEvent('play', () => {
 			pageChangedHandler(this);
@@ -43,6 +44,7 @@ export class PageState implements PageWithState {
 		return urlQuery().get('v') || '';
 	}
 
+	// IDEA: should this just watch the document instead of some other root?
 	async channelId() {
 		return await new Promise<string>(resolve => {
 			try {
@@ -57,7 +59,7 @@ export class PageState implements PageWithState {
 						const ALL_CHANNEL_LINKS = e.querySelectorAll(CHANNEL_LOOKUP_LINK_SELECTOR);
 						const VISIBLE_CHANNEL_LINKS = Array.from(ALL_CHANNEL_LINKS).filter(elementHasSizeFilter);
 
-						this.logger.debug({ msg: 'visible channel links', what: VISIBLE_CHANNEL_LINKS });
+						this.logger.debug('visible channel links', VISIBLE_CHANNEL_LINKS);
 
 						if (VISIBLE_CHANNEL_LINKS.length) {
 							foundChannelId = true;

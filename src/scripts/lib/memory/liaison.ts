@@ -54,7 +54,7 @@ class MemoryLiaison {
 
 		this.memory = merge(this.memory, EXISTING_MEMORY);
 
-		this.logger.log({ msg: 'current speed memory', what: this.memory });
+		this.logger.log('current speed memory', this.memory);
 
 		await this.saveMemory();
 	}
