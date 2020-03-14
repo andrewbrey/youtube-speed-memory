@@ -46,7 +46,7 @@
   * */
 
   function sendRuntimeMessage(messageName, messagePayload, callback) {
-    chrome.runtime.sendMessage({name: messageName, payload: messagePayload}, callback);
+    chrome.runtime.sendMessage({ name: messageName, payload: messagePayload }, callback);
     return true; // Ensure port stays open
   }
 
@@ -54,7 +54,7 @@
     const DEFAULT_SYNC_STORAGE = _defaultSyncStorage();
 
     return new Promise(resolve => {
-      chrome.storage.local.get({[U.constants.SYNC_STORAGE_KEY]: DEFAULT_SYNC_STORAGE}, (items) => {
+      chrome.storage.local.get({ [U.constants.SYNC_STORAGE_KEY]: DEFAULT_SYNC_STORAGE }, (items) => {
         if (chrome.runtime.lastError) {
           console.error(chrome.runtime.lastError);
           resolve(DEFAULT_SYNC_STORAGE);
@@ -67,10 +67,10 @@
 
   function updateSpeedMemory(syncable) {
     getSpeedMemory().then(sm => {
-      if(syncable && syncable.video && (syncable.video.speed !== 1 || syncable.video.startTime !== 0)) {
+      if (syncable && syncable.video && (syncable.video.speed !== 1 || syncable.video.startTime !== 0)) {
         let video = (sm.videos[syncable.video.id] || {});
 
-        if(video.id) {
+        if (video.id) {
           video.name = (syncable.video.name || video.name || 'UNKNOWN NAME');
           video.thumbnail = (syncable.video.thumbnail || video.thumbnail || null);
           video.speed = (clampSpeed(syncable.video.speed) || clampSpeed(video.speed) || U.constants.DEFAULT_PLAYBACK_SPEED);
@@ -86,10 +86,10 @@
         sm.videos[video.id] = video;
       }
 
-      if(syncable && syncable.channel && syncable.channel.speed !== 1) {
+      if (syncable && syncable.channel && syncable.channel.speed !== 1) {
         let channel = (sm.channels[syncable.channel.name] || {});
 
-        if(channel.name) {
+        if (channel.name) {
           channel.thumbnail = (syncable.channel.thumbnail || channel.thumbnail || null);
           channel.speed = (clampSpeed(syncable.channel.speed) || clampSpeed(channel.speed) || U.constants.DEFAULT_PLAYBACK_SPEED);
         } else {
@@ -101,20 +101,20 @@
         sm.channels[channel.name] = channel;
       }
 
-      chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
+      chrome.storage.local.set({ [U.constants.SYNC_STORAGE_KEY]: sm });
     });
   }
 
   function deleteFromMemory(identifier, isChannel) {
     getSpeedMemory().then(sm => {
 
-      if(!isChannel) {
+      if (!isChannel) {
         delete sm.videos[identifier];
       } else {
         delete sm.channels[identifier];
       }
 
-      chrome.storage.local.set({[U.constants.SYNC_STORAGE_KEY]: sm});
+      chrome.storage.local.set({ [U.constants.SYNC_STORAGE_KEY]: sm });
     });
   }
 
@@ -123,13 +123,13 @@
 
     chrome.tabs.sendMessage(tabId, {
       name: U.constants.SET_TAB_PLAYBACK_INFO,
-      payload: {speed: speed, start: startTime}
+      payload: { speed: speed, start: startTime }
     });
   }
 
   function requestTabInfo(tabId) {
     return new Promise(resolve => {
-      chrome.tabs.sendMessage(tabId, {name: U.constants.REQUEST_TAB_INFO, payload: null}, tabData => {
+      chrome.tabs.sendMessage(tabId, { name: U.constants.REQUEST_TAB_INFO, payload: null }, tabData => {
         resolve(tabData);
       });
     });
@@ -146,15 +146,15 @@
       image.onload = () => {
         image.onload = null;
         if (image.naturalWidth === 120 && image.naturalHeight === 90 && !isChannel) { // Handle Google's default
-          resolve({result: false, isChannel: !!isChannel});
+          resolve({ result: false, isChannel: !!isChannel });
         } else {
-          resolve({result: true, isChannel: !!isChannel});
+          resolve({ result: true, isChannel: !!isChannel });
         }
       };
 
       image.onerror = () => {
         image.onerror = null;
-        resolve({result: false, isChannel: !!isChannel});
+        resolve({ result: false, isChannel: !!isChannel });
       };
 
       image.src = thumbnailUrl;
@@ -179,10 +179,10 @@
     videoSpeed = clampSpeed(videoSpeed);
     channelSpeed = clampSpeed(channelSpeed);
 
-    if(videoSpeed !== U.constants.DEFAULT_PLAYBACK_SPEED || channelSpeed !== U.constants.DEFAULT_PLAYBACK_SPEED) {
-      if(videoSpeed === U.constants.DEFAULT_PLAYBACK_SPEED) {
+    if (videoSpeed !== U.constants.DEFAULT_PLAYBACK_SPEED || channelSpeed !== U.constants.DEFAULT_PLAYBACK_SPEED) {
+      if (videoSpeed === U.constants.DEFAULT_PLAYBACK_SPEED) {
         speed = channelSpeed;
-      } else if(channelSpeed === U.constants.DEFAULT_PLAYBACK_SPEED) {
+      } else if (channelSpeed === U.constants.DEFAULT_PLAYBACK_SPEED) {
         speed = videoSpeed;
       } else {
         speed = videoSpeed;

@@ -8,7 +8,7 @@
       loadingInterval = null;
 
       setUpView();
-    } else if(popupInfo) { // Content script isn't registered in YouTube tab
+    } else if (popupInfo) { // Content script isn't registered in YouTube tab
       clearInterval(loadingInterval);
       loadingInterval = null;
 
@@ -68,7 +68,7 @@
     videoStart.value = syncable.video.startTime;
     channelSpeed.value = syncable.channel.speed;
 
-    if(!justSetSpeed) {
+    if (!justSetSpeed) {
       // Update shared memory
       U.fn.runtime.updateSpeedMemory(syncable);
     }
@@ -119,8 +119,8 @@
 
     Promise.all(thumbnailPromises).then(checks => {
       checks.forEach(check => {
-        if(check.result) {
-          if(check.isChannel) {
+        if (check.result) {
+          if (check.isChannel) {
             channelThumbnail.src = channelThumbnailUrl;
           } else {
             videoThumbnail.src = videoThumbnailUrl;
@@ -148,7 +148,7 @@
 
       rememberButton.addEventListener('click', updateSpeedMemory);
       justSetSpeedButton.addEventListener('click', justUpdateSpeed);
-      openOptions.addEventListener('click', function(){ chrome.runtime.openOptionsPage(); });
+      openOptions.addEventListener('click', function () { chrome.runtime.openOptionsPage(); });
       loader.classList.add('hidden');
     });
   }

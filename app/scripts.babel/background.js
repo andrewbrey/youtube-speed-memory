@@ -2,11 +2,11 @@
   'use strict';
 
   chrome.runtime.onInstalled.addListener(() => {
-    chrome.tabs.query({url: '*://*.youtube.com/*'}, tabs => {
+    chrome.tabs.query({ url: '*://*.youtube.com/*' }, tabs => {
       tabs.forEach(tab => {
-        chrome.tabs.executeScript(tab.id, {file: '/scripts/youtube-speed-memory-listener.js', runAt: 'document_end'}, () => {
+        chrome.tabs.executeScript(tab.id, { file: '/scripts/youtube-speed-memory-listener.js', runAt: 'document_end' }, () => {
           chrome.pageAction.show(tab.id);
-          chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory'});
+          chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory' });
         });
       });
     });
@@ -27,7 +27,7 @@
         break;
       }
       case U.constants.REQUEST_POPUP_INFO: {
-        chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
           let speedMemoryPromise = U.fn.runtime.getSpeedMemory();
           let tabInfoPromise = U.fn.runtime.requestTabInfo(tabs[0].id);
 
@@ -59,24 +59,24 @@
   chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
       chrome.pageAction.show(tab.id);
-      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+      chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Active!' });
 
       sendSpeedUpdateToTab(tab.id, (changeInfo && changeInfo.status === 'loading'));
     } else {
       chrome.pageAction.hide(tab.id);
-      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
+      chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Inactive' });
     }
   });
 
   chrome.tabs.onCreated.addListener(tab => {
     if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
       chrome.pageAction.show(tab.id);
-      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+      chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Active!' });
 
       sendSpeedUpdateToTab(tab.id);
     } else {
       chrome.pageAction.hide(tab.id);
-      chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
+      chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Inactive' });
     }
   });
 
@@ -84,16 +84,16 @@
     chrome.tabs.get(activeInfo.tabId, (tab) => {
       if (tab && tab.url && tab.url.match(/^.+:\/\/.+youtube.com.*v=.*$/)) {
         chrome.pageAction.show(tab.id);
-        chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Active!'});
+        chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Active!' });
       } else {
         chrome.pageAction.hide(tab.id);
-        chrome.pageAction.setTitle({tabId: tab.id, title: 'YouTube Speed Memory is Inactive'});
+        chrome.pageAction.setTitle({ tabId: tab.id, title: 'YouTube Speed Memory is Inactive' });
       }
     });
   });
 
   function sendSpeedUpdateToTab(tabId, shouldClosePopup) {
-    if(shouldClosePopup) {
+    if (shouldClosePopup) {
       U.fn.runtime.sendRuntimeMessage(U.constants.CLOSE_POPUP);
     }
     let speedMemoryPromise = U.fn.runtime.getSpeedMemory();

@@ -14,7 +14,7 @@
   });
 
   getTabInfo((result) => {
-    chrome.runtime.sendMessage({name: C.REQUEST_PLAYBACK_INFO, payload: result});
+    chrome.runtime.sendMessage({ name: C.REQUEST_PLAYBACK_INFO, payload: result });
   });
 
   function handleMessage(message, callback) {
@@ -28,7 +28,7 @@
         break;
       }
       default: {
-        callback({error: `Unknown message name [${message.name}]`});
+        callback({ error: `Unknown message name [${message.name}]` });
         break;
       }
     }
@@ -41,14 +41,14 @@
       video = document.querySelector('video');
 
       video.playbackRate = (playbackInfo.speed || 1);
-      if((video.currentTime + 1) < (playbackInfo.start || 0)) {
+      if ((video.currentTime + 1) < (playbackInfo.start || 0)) {
         video.currentTime = (playbackInfo.start || 0);
       }
-    } catch(e) {
+    } catch (e) {
       console.error('Unable to set Tab playback info for YouTube Speed Memory');
     }
 
-    if(callback && typeof callback === 'function') {
+    if (callback && typeof callback === 'function') {
       callback(true);
     }
   }
@@ -70,18 +70,18 @@
 
         videoId = (new URL(window.location.href)).searchParams.get('v');
         videoSpeed = video.playbackRate;
-        videoName = (document.querySelector('#info-contents .title') || document.querySelector('#eow-title')).innerText;
+        videoName = (document.querySelector('ytmusic-player-bar .middle-controls .title') || document.querySelector('#info-contents .title') || document.querySelector('#eow-title')).innerText;
         videoThumbnailUrl = C.VIDEO_THUMBNAIL_TEMPLATE.replace('<<VIDEO_ID>>', videoId);
-        channelName = (document.querySelector('#owner-name a') || document.querySelector('#watch-header .yt-user-info a[href*="/channel/"]')).innerText;
-        channelThumbnailUrl = (document.querySelector('.ytd-video-owner-renderer #avatar img') || document.querySelector('#watch-header .video-thumb img')).src;
-      } catch(e) {
-        console.error('Unable to retrieve Tab info for YouTube Speed Memory');
+        channelName = (document.querySelector('ytmusic-player-bar .middle-controls .byline') || document.querySelector('ytd-video-owner-renderer #channel-name') || document.querySelector('#owner-name a') || document.querySelector('#watch-header .yt-user-info a[href*="/channel/"]')).innerText;
+        channelThumbnailUrl = (document.querySelector('ytmusic-player-bar .middle-controls img') || document.querySelector('ytd-video-owner-renderer #avatar img') || document.querySelector('.ytd-video-owner-renderer #avatar img') || document.querySelector('#watch-header .video-thumb img')).src;
+      } catch (e) {
+        console.error('Unable to retrieve Tab info for YouTube Speed Memory', e);
       }
 
-      if(videoInformationIntervalCounter > 20 || (videoId && videoSpeed && videoName && videoThumbnailUrl && channelName && channelThumbnailUrl)) {
+      if (videoInformationIntervalCounter > 20 || (videoId && videoSpeed && videoName && videoThumbnailUrl && channelName && channelThumbnailUrl)) {
         clearInterval(videoInformationInterval);
 
-        if(callback && typeof callback === 'function') {
+        if (callback && typeof callback === 'function') {
           callback({
             videoId: videoId,
             videoName: videoName,
