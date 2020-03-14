@@ -11,6 +11,7 @@
 ### 1.x.x
 
 - ***1.4.x***
+  - ***1.4.10*** - Fix missing styles after last update
   - ***1.4.9*** - Update code to reflect recent changes in YouTube page structure
   - ***1.4.8*** - Ensure that the correct channel name is grabbed during tab data collection
   - ***1.4.7*** - Update code to work with the version of YouTube that Google is testing periodically for some users
